@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:module="http://www.sgcc.com.cn/schema/platform/module" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.sgcc.com.cn/schema/platform/module http://www.sgcc.com.cn/schema/platform/module/module.xsd">  
+  <!--<bean id="com.sgcc.uap.mda.eventManager" class="com.sgcc.uap.eventhandler.EventManager">
+		<property name="agent">
+			<map>
+			</map>
+		</property>
+
+	</bean>-->
+  <!--<service id="appframework.eventService" beanId="com.sgcc.uap.mda.eventManager" targetName="com.sgcc.uap.eventhandler.EventManager"/>-->
+<!--远程调用 -->
+<!-- 
+<bean id="historicalDataCleaningTask" class="com.sgcc.jod.HistoricalDataCleaningTask"></bean>
+<module:service id="historicalDataCleaningTaskService" beanId="historicalDataCleaningTask" targetName="com.sgcc.uap.task.component.communication.restService.ITaskDispatchService" ranking="100" 
+	includeBundle="com.sgcc.uap.taskdispatch.component"/>
+	 -->
+	
+	<!--本地调用  -->
+	<!-- 
+	<bean id="historicalDataCleaningTask" class="com.sgcc.jod.HistoricalDataCleaningTask"></bean>
+<module:service id="historicalDataCleaningTaskService" beanId="historicalDataCleaningTask" targetName="com.sgcc.uap.task.component.communication.restService.ITaskDispatchService" ranking="100" 
+	includeBundle="com.sgcc.uap.taskdispatch"/>
+	<context:component-scan base-package="common.dataService"/>  --> 
+	
+</beans>

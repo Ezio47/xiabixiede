@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.sgcc.framework.base.loginrecord.po.LoginRecord" table="T_LOGINRECORD">
+    <id name="id" type="java.lang.String">
+      <column name="ID" length="32"/>
+      <generator class="uuid"/>
+    </id>
+    <property name="userId" type="java.lang.String" lazy="true">
+      <column name="USERID" length="32" not-null="false"/>
+    </property>
+    <property name="loginDate" type="java.lang.String" lazy="true">
+      <column name="LOGINDATE" length="32" not-null="false"/>
+    </property>
+    <property name="roleName" type="java.lang.String" lazy="true">
+      <column name="ROLENAME" length="1024" not-null="false"/>
+    </property>
+    <property name="ip" type="java.lang.String" lazy="true">
+      <column name="IP" length="32" not-null="false"/>
+    </property>
+  </class>
+</hibernate-mapping>

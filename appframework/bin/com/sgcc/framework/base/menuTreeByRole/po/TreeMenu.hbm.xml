@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- Generated 2014-5-12 11:31:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping> 
+  <class name="com.sgcc.framework.base.menuTreeByRole.po.TreeMenu" table="T_EU_ROLE_MENU_RELATION"> 
+    <id name="id" type="java.lang.String"> 
+      <column name="ID" length="32"/>  
+      <generator class="uuid"/> 
+    </id>  
+    <property name="sysid" type="java.lang.String" lazy="true"> 
+      <column name="SYSID" length="64" not-null="true"/> 
+    </property>  
+    <property name="roleid" type="java.lang.String" lazy="true"> 
+      <column name="ROLEID" length="64" not-null="true"/> 
+    </property>  
+    <property name="menuid" type="java.lang.String" lazy="true"> 
+      <column name="MENUID" length="64" not-null="true"/> 
+    </property>  
+    <property name="menupid" type="java.lang.String" lazy="true"> 
+      <column name="MENUPID" length="64" not-null="true"/> 
+    </property>  
+    <property name="note1" type="java.lang.String" lazy="true"> 
+      <column name="NOTE1" length="64"/> 
+    </property>  
+    <property name="note2" type="java.lang.String" lazy="true"> 
+      <column name="NOTE2" length="64"/> 
+    </property> 
+  </class> 
+</hibernate-mapping>
