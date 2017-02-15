@@ -5,6 +5,7 @@ mainView.views.MainViewController = function()
 {
     var me = $extend(mx.views.ViewController);
     var base = {};
+    var searching = false;
   
     me.getView = function()
     {
@@ -100,9 +101,91 @@ mainView.views.MainViewController = function()
 ////    	
 ////    }
     
+    
+    me._shapingDot_Onclick = function(){
+    	
+    }
+    
+    var _3dmlfeatureLayer = null;
+    me._search_Onclick = function(){
+    	var sgworld = me.getView().sgworld;
+    	if(!searching){
+    		searching = true;
+    		sgworld.Window.SetInputMode(1);
+    		sgworld.AttachEvent("OnFrame",SGEventOnFrame);
+//    		sgworld.AttachEvent("OnLButtonDown",Mouse_Info_OnLButtonDown);
+    	}
+    	else{
+    		searching = false;
+    		sgworld.Window.SetInputMode(0);
+    		sgworld.detachEvent("OnFrame",SGEventOnFrame);
+//    		sgworld.detachEvent("OnLButtonDown",Mouse_Info_OnLButtonDown);
+    		_3dmlfeatureLayer.FeatureProperties.Tooltip.Text = "";
+            _3dmlfeatureLayer.FeatureProperties.Tint.SetAlpha(0.0);
+    	}
+    	
+    }
+    
+    
+    var framesNr = 0;
+    var FPSLimitation = 10;
+    var mi;
+    var wpi;
+    var lastID;
+    var layer2 = null;
+    var theFeature;
+    var filename;
+    var lx;
+    var sb_id;
+    function SGEventOnFrame(){
+    	 try {
+    	 		var sgworld = me.getView().sgworld;
+                if (sfnum1 == false) {
+                    mi = sgworld.Window.GetMouseInfo();
+                    wpi = sgworld.Window.PixelToWorld(mi.X, mi.Y);
+
+                    if (wpi.Type == 8192 && lastID != wpi.ObjectID) {
+
+                        theFeature = sgworld.ProjectTree.GetObject(wpi.ObjectID);
+
+                        _3dmlfeatureLayer = sgworld.ProjectTree.GetObject(theFeature.ParentGroupID);
+                        filename = theFeature.FeatureAttributes.GetFeatureAttribute("FileName").Value;
+                        var words = filename.split('_');
+
+                        //_3dmlfeatureLayer.FeatureProperties.Tooltip.Text = "";
+                        _3dmlfeatureLayer.FeatureProperties.Tint.SetAlpha(0.0);
+                        if (words[0] == "沙坪500kV变电站" || words[0] == "沙坪500KV变电站" || words[0] == "沙坪变电站500kV" || words[0] == "沙坪变电站500KV" || words[0] == "鼎功500kV变电站" || words[0] == "君山110kV变电站" || words[0] == "杉树变电站") {
+                            var objid = words[4].split('.');
+                            theFeature.Tint.FromHTMLColor("#00FFFF");
+                            theFeature.Tint.SetAlpha(0.6);
+                             
+                            //theFeature.show = false;
+                            //sgworld.ProjectTree.SetVisibility(theFeature.ID,false)
+                            _3dmlfeatureLayer.FeatureProperties.Tooltip.Text = "变电站名称：" + words[0] + "\r\n" + "电流类型：" + words[1] + "\r\n" + "设备类型：" + words[2] + "\r\n" + "编码：" + objid[0];
+                            lx = words[2];
+                            sb_id = objid[0];
+                        }
+
+                        lastID = wpi.ObjectID;
+
+                    }
+                }
+
+            }
+            catch (ex)
+            {
+               
+               
+            }
+
+    }
+    
     window.onload = function(){
-    	var sgworld = window.document.getElementById("sgworld");
-    	var file = "D:\\智慧城市框架\\智慧城市开发框架\\De.fly";
+    	//alert("111");
+    	//alert("111");
+    	var sgworld = me.getView().sgworld;
+//    	var file = "D:\\智慧城市框架\\智慧城市开发框架\\De.fly";
+    	var file = "D:\\skyline\\lcy\\数据\\hunan.FLY";
     	sgworld.Project.Open(file);
     }
     

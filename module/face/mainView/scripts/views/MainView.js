@@ -6,7 +6,8 @@ $import("mx.containers.Panel");
 $import("mx.containers.HtmlContainer");
 $import("mx.containers.HSplit");
 $import("mx.containers.VSplit");
-
+$import("mx.containers.Accordion");
+ 	
 mainView.views.MainView = function()
 {
     var me = $extend(mx.views.View);
@@ -15,10 +16,10 @@ mainView.views.MainView = function()
     //me.objID = null;
     me.object = null;
     //me.vSplit = null;
-    
-    
+    me.sgworld = null;
+    me.hSplit = null;
     me.expanded = false;//popupwindow是否为空
-    //me.htmlContainer = null;
+    me.htmlContainer = null;
     
     //me.form = null;
     
@@ -50,30 +51,33 @@ mainView.views.MainView = function()
         
         
     	//上下
-        var hSplit = new mx.containers.HSplit({
+        me.hSplit = new mx.containers.HSplit({
             rows:"105px, auto"
             
         });
         
         
         
-//        var titlePanel = new mx.containers.Panel(
-//        	{ 
-//        		name:"titlePanel",
-//        		width:"100%",
-//        		height:"100%",
-//        		displayHead:false
-//        		//css:{background:"url(\"images/top1.png\")no-repeat"}
-//        			
-//        	}
-//        );
+        var titlePanel = new mx.containers.Panel(
+        	{ 
+        		name:"titlePanel",
+        		width:"100%",
+        		height:"100%",
+        		displayHead:false,
+        		css:{border:"10",bordercolor:"#000000"}
+        		//css:{background:"url(\"images/top1.png\")no-repeat"}
+        			
+        	}
+        );
+        //titlePanel.setBorder("border:10");
         
-        //hSplit.addControl(titlePanel,0);
+        me.hSplit.addControl(titlePanel,0);
         
         var topL = document.createElement("div");
         topL.id = "abc";
         topL.style.cssText = "width:100%;height:100%;background:url('images/top1.png');display:inline-block";
-        hSplit.$panel1.append(topL);
+        //me.hSplit.$panel1.append(topL);
+        titlePanel.append(topL,0);
         //hSplit.addControl(topL,0);
        	//titlePanel.append(topL);
         
@@ -93,11 +97,11 @@ mainView.views.MainView = function()
         
         
         
-//        var sgPanel = new mx.containers.Panel(
-//        		{ name: "sgPanel",width:"100%",height:"100%",displayHead:false}); 
-//        me.addControl(hSplit);
-//        
-//        hSplit.addControl(sgPanel,1);
+        var sgPanel = new mx.containers.Panel(
+        		{ name: "sgPanel",width:"100%",height:"100%",displayHead:false}); 
+        me.addControl(me.hSplit);
+        
+        
 //
 //        me.htmlContainer = new mx.containers.HtmlContainer({
 //            url:"main.html",
@@ -105,8 +109,42 @@ mainView.views.MainView = function()
 //            width:"100%",
 //            onload:me.controller._sgworldInit});
 //        sgPanel.addControl(me.htmlContainer);
-//        //me.addControl(sgworldDiv);
+        //me.addControl(sgworldDiv);
+        
+        var accordion = new mx.containers.Accordion({
+    		height:"100%",
+    		width:"100%",
+    		panels:[
+        		{ title: "三维地图", name: "threeDMap" },
+        		{ title: "工具箱", name: "toolBox" }
+    				]
+		});
+		
+		var shapingButton = new mx.controls.Button(
+			{ 
+				text: "点选查询",
+				css:{background:"url('images/41.png')"},
+				onclick:me.controller._shapingDot_Onclick
+			}
+		);
+		
+		
+		var button = new mx.controls.Button(
+			{ 
+				text: "点选查询",
+				css:{background:"url('images/41.png')"},
+				onclick:me.controller._search_Onclick
+			}
+		);
+		accordion.panels["toolBox"].addControl(button);
+		
+		var vSplit = new mx.containers.VSplit({
+    		cols:"10%,90%"
+		});
+		vSplit.addControl(accordion,0);
+		vSplit.addControl(sgPanel,1);
 
+		me.hSplit.addControl(vSplit,1);
 
 	
 		var sgDiv = document.createElement("div");
@@ -117,19 +155,26 @@ mainView.views.MainView = function()
 		TE3DWindow.classid = "clsid:3a4f9192-65a8-11d5-85c1-0001023952c1";
 		sgDiv.appendChild(TE3DWindow);
 		
-		var sgworld = document.createElement('object');
-		sgworld.id = "sgworld";
-		sgworld.classid = "CLSID:3a4f9199-65a8-11d5-85c1-0001023952c1";
-		sgworld.style.cssText = "visibility: hidden; height: 0";
-		sgDiv.appendChild(sgworld);
+		me.sgworld = document.createElement('object');
+		me.sgworld.id = "sgworld";
+		me.sgworld.classid = "CLSID:3a4f9199-65a8-11d5-85c1-0001023952c1";
+		me.sgworld.style.cssText = "visibility: hidden; height: 0";
+		sgDiv.appendChild(me.sgworld);
 		
-		//hSplit.$panel2.append(sgDiv);
-	
+////		me.hSplit.$panel2.append(sgDiv);
+//		me.hSplit.addControl(sgDiv,1);
+//		//me.hSplit.append(sgDiv,1);
+		sgPanel.append(sgDiv);
 		
 
         me.on("activate", me.controller._onactivate);
     }
     
+    
+    function createTable(){
+    	var div = document.CreateElement("div");
+    	
+    }
     
 
 
