@@ -122,7 +122,7 @@ mainView.views.MainView = function()
 		
 		var shapingButton = new mx.controls.Button(
 			{ 
-				text: "点选查询",
+				text: "沙坪定位",
 				css:{background:"url('images/41.png')"},
 				onclick:me.controller._shapingDot_Onclick
 			}
@@ -136,6 +136,7 @@ mainView.views.MainView = function()
 				onclick:me.controller._search_Onclick
 			}
 		);
+		accordion.panels["threeDMap"].addControl(shapingButton);
 		accordion.panels["toolBox"].addControl(button);
 		
 		var vSplit = new mx.containers.VSplit({

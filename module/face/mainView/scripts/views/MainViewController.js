@@ -102,8 +102,11 @@ mainView.views.MainViewController = function()
 ////    }
     
     
-    me._shapingDot_Onclick = function(){
-    	
+    me._shapingDot_Onclick = function(e){
+    	var sgworld = me.getView().sgworld;
+    	var item = sgworld.ProjectTree.FindItem(e);
+    	var obj = sgworld.ProjectTree.GetObject(item);
+    	sgworld.Navigate.FlyTo(obj,0);
     }
     
     var _3dmlfeatureLayer = null;
